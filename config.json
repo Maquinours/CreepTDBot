@@ -1,5 +1,12 @@
 {
     "token": "YOUR_TOKEN",
     "prefix": "YOUR_PREFIX",
-    "administrators": ["YOUR_ID"]
+    "administrators": ["YOUR_ID"],
+    "db":
+    {
+        "host": "localhost",
+        "db": "creeptdstatsbot",
+        "user": "Maqui",
+        "pwd": "O0vBWWLY6tk4FMP1"
+    }
 }

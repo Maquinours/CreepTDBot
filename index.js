@@ -1,16 +1,13 @@
-class DatabaseDialog {
-    constructor() {
-    }
-    async connectDB() {
+var dbDialog = {
+    connectDB: async function() {
         this.db = mysql.createConnection({
-            host: "localhost",
-            user: "Maqui",
-            password: "O0vBWWLY6tk4FMP1",
-            database: "creeptdstatsbot"
+            host: config.db.host,
+            user: config.db.user,
+            password: config.db.pwd,
+            database: config.db.db
         });
-    }
-    async insertUser(discordID, creepName) {
-        await this.connectDB();
+    },
+    insertUser: async function(discordID, creepName) {
         const sql = "INSERT INTO users VALUES(?, ?)";
         let results = await new Promise((resolve, reject) => this.db.query(sql, [discordID, creepName], (err, results) => {
             if (err) {
@@ -19,11 +16,9 @@ class DatabaseDialog {
             else
                 resolve(results);
         }));
-        this.db.end();
         return results;
-    }
-    async deleteUser(discordID) {
-        await this.connectDB();
+    },
+    deleteUser: async function(discordID) {
         const sql = "DELETE FROM users WHERE discord_id=?";
         let results = await new Promise((resolve, reject) => this.db.query(sql, [discordID], (err, results) => {
             if (err)
@@ -31,11 +26,9 @@ class DatabaseDialog {
             else
                 resolve(results);
         }));
-        this.db.end();
         return results;
-    }
-    async getCreepName(discordID) {
-        await this.connectDB();
+    },
+    getCreepName: async function(discordID) {
         const sql = "SELECT creeptd_name FROM users WHERE discord_id=?";
         let results = await new Promise((resolve, reject) => this.db.query(sql, [discordID], (err, results) => {
             if (err)
@@ -47,13 +40,11 @@ class DatabaseDialog {
                     resolve(results);
             }
         }));
-        this.db.end();
         if (results && results[0] && results[0].creeptd_name)
             return results[0].creeptd_name;
         return results;
-    }
-    async insertGuild(guildID) {
-        await this.connectDB();
+    },
+    insertGuild: async function(guildID) {
         let sql = "INSERT INTO guilds VALUES(?, 1)";
         let result = await new Promise((resolve, reject) => this.db.query(sql, [guildID], (err, results) => {
             if (err)
@@ -61,11 +52,9 @@ class DatabaseDialog {
             else
                 resolve(results);
         }));
-        this.db.end();
         return result;
-    }
-    async updateLanguage(guildID, languageID) {
-        await this.connectDB();
+    },
+    updateLanguage: async function(guildID, languageID) {
         let sql = "UPDATE guilds SET id_language=(SELECT id_language FROM languages WHERE code_language=?) WHERE id_guild=?";
         let results = await new Promise((resolve, reject) => this.db.query(sql, [languageID, guildID], async (err, results) => {
             if (err)
@@ -88,11 +77,9 @@ class DatabaseDialog {
                     resolve(results);
             }
         }));
-        this.db.end();
         return results;
-    }
-    async getLanguage(guildID) {
-        await this.connectDB();
+    },
+    getLanguage: async function(guildID) {
         let sql = "SELECT LA.code_language FROM languages LA JOIN guilds GU ON LA.id_language=GU.id_language WHERE GU.id_guild=?";
         let results = await new Promise((resolve, reject) => this.db.query(sql, [guildID], (err, results) => {
             if (err)
@@ -104,7 +91,6 @@ class DatabaseDialog {
                     resolve(results);
             }
         }));
-        this.db.end();
         if (results && results[0] && results[0].code_language)
             return results[0].code_language;
         return results;
@@ -118,7 +104,6 @@ const mysql = require("mysql");
 const allTexts = require("./texts.json");
 
 const client = new Discord.Client();
-const dbDialog = new DatabaseDialog();
 
 const creepMapsSizes = new Set(["16x16", "32x16", "32x32"]);
 
@@ -306,7 +291,7 @@ client.on('message', async message => {
 
 
 client.on('ready', () => {
-    client.user.setStatus('invisible');
+    dbDialog.connectDB();
     client.guilds.cache.forEach((guild) => {
         dbDialog.insertGuild(guild.id)
             .catch((err) => { });
