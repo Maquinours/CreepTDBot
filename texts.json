@@ -1,5 +1,5 @@
 {
-    "fr": {
+    "FR": {
         "connected": "Connecté",
         "disconnected": "Déconnecté",
         "status": "Statut",
@@ -50,7 +50,7 @@
         "errorUnknownDescription": "Erreur inconnue. Veuillez réessayer ultérieurement.",
         "errorNeedAdminPermission": "Vous devez être administrateur du serveur afin d'utiliser cette commande."
     },
-    "en": {
+    "EN": {
         "connected": "Connected",
         "disconnected": "Disconnected",
         "status": "Status",
