@@ -28,6 +28,6 @@ INSERT INTO languages(id, code) VALUES(0, 'EN');
 INSERT INTO languages(id, code) VALUES(1, 'FR');
 
 DROP USER IF EXISTS 'creeptdstatsbot'@'localhost';
-CREATE USER 'creeptdstatsbot'@'localhost' IDENTIFIED BY '*44o*^u%vyoUTc';
+CREATE USER 'creeptdstatsbot'@'localhost' IDENTIFIED BY '';
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON creeptdstats.* TO 'creeptdstatsbot'@'localhost'
