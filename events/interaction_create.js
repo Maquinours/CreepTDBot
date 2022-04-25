@@ -14,7 +14,6 @@ module.exports.use = async (interaction) => {
         } catch (err) { dbDialog.insertGuild(interaction.guildId)}
         let texts = allTexts[language];
         let embedResponse = new MessageEmbed();
-        embedResponse.description = "a";
 
         switch (command) {
             case "playerstats": {

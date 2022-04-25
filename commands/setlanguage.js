@@ -30,7 +30,7 @@ module.exports.use = async (interaction, embedResponse, texts, allTexts) => {
                 embedResponse.setColor(colorRed)
                     .setTitle(texts.setlanguageErrorTitle)
                     .setDescription(texts.errorUnknownDescription);
-                if (err.message == 'NO_DATA_CHANGED') {
+                if (err.message === 'NO_DATA_CHANGED') {
                     embedResponse.setDescription(texts.setLanguageErrorLanguageNotChangedDescription);
                 }
             }

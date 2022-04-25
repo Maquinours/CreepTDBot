@@ -48,7 +48,7 @@ module.exports = dbDialog = {
         return results;
     },
     insertGuild: async function(guildID) {
-        let sql = "INSERT INTO guilds(discord_id) VALUES(?)";
+        let sql = "INSERT INTO guilds(discord_id, language) VALUES(?, 0)";
         let result = await new Promise((resolve, reject) => this.db.query(sql, [guildID], (err, results) => {
             if (err)
                 reject(err);
@@ -63,7 +63,7 @@ module.exports = dbDialog = {
             if (err)
                 reject(err);
             else {
-                if (results.affectedRows == 0) {
+                if (results.affectedRows === 0) {
                     sql = "INSERT INTO guilds(discord_id, language) VALUES(?, (SELECT id FROM languages WHERE code=?))";
                     results = await new Promise((resolve, reject) => this.db.query(sql, [guildID, languageID], (err, results) => {
                         if (err) {
@@ -74,7 +74,7 @@ module.exports = dbDialog = {
                         }
                     }));
                 }
-                else if (results.changedRows == 0) {
+                else if (results.changedRows === 0) {
                     reject(new Error('NO_DATA_CHANGED'));
                 }
                 else
