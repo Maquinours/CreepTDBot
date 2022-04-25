@@ -1,9 +1,12 @@
 const log = require("../utils/log");
 const getJsonFromUrl = require('../utils/getJsonFromUrl');
 const { colorRed, creepMapsSizes, colorGreen } = require('../utils/data');
+const { CommandInteraction, MessageEmbed } = require("discord.js");
 
 
 module.exports.use = async (interaction, embedResponse, texts, language) => {
+    if(!(interaction instanceof CommandInteraction && embedResponse instanceof MessageEmbed && typeof(language) == 'string')) throw new Error('Variable type error');
+
     log('randmap command used');
     let notValidArg = false;
     try {

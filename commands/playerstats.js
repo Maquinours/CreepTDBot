@@ -3,8 +3,11 @@ const { colorGreen, colorRed } = require('../utils/data');
 const dbDialog = require('../utils/dbDialog');
 const getJsonFromUrl = require('../utils/getJsonFromUrl');
 const convertSecondsToDHMS = require('../utils/convertSecondsToDHMS');
+const { CommandInteraction, MessageEmbed } = require("discord.js");
 
 module.exports.use = async (interaction, embedResponse, texts, language) => {
+    if(!(interaction instanceof CommandInteraction && embedResponse instanceof MessageEmbed && typeof(language) == 'string')) throw new Error('Variable type error');
+
     log('playerstats command used');
     try {
         let target = null;
@@ -60,6 +63,7 @@ module.exports.use = async (interaction, embedResponse, texts, language) => {
                 embedResponse.setDescription(texts.errorAccountNotFoundDescription.replace("${playername}", target));
                 break;
             default:
+                console.log(err);
                 embedResponse.setDescription(texts.errorUnknownDescription);
         }
     }

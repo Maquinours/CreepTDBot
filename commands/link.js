@@ -2,9 +2,13 @@ const log = require("../utils/log");
 const getJsonFromUrl = require('../utils/getJsonFromUrl');
 const dbDialog = require('../utils/dbDialog');
 const { colorGreen, colorRed } = require('../utils/data');
+const { CommandInteraction, MessageEmbed } = require("discord.js");
 
 module.exports.use = async (interaction, embedResponse, texts) => {
+    if (!(interaction instanceof CommandInteraction && embedResponse instanceof MessageEmbed)) throw new Error('Variable type error');
+
     log('link command used');
+
     const playerName = interaction.options.getString('username');
     try {
         let json = await getJsonFromUrl(`http://www.creeptd.com/api/players?name=${playerName}`);
@@ -31,11 +35,14 @@ module.exports.use = async (interaction, embedResponse, texts) => {
                             }
                             break;
                         default:
+                            console.log(err);
                             embedResponse.setDescription(texts.errorUnknownDescription);
                     }
                 }
-                else
+                else {
+                    console.log(err);
                     embedResponse.setDescription(texts.errorUnknownDescription);
+                }
         }
     }
     return embedResponse;

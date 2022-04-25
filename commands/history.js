@@ -1,11 +1,14 @@
-const { Interaction } = require("discord.js");
+const { CommandInteraction, MessageEmbed } = require("discord.js");
 const dbDialog = require('../utils/dbDialog');
 const getJsonFromUrl = require('../utils/getJsonFromUrl');
 const log = require("../utils/log");
 const { colorRed, maxFields, colorGreen } = require('../utils/data');
 
 module.exports.use = async (interaction, embedResponse, texts) => {
+    if (!(interaction instanceof CommandInteraction && embedResponse instanceof MessageEmbed)) throw new Error('Variable type error');
+
     log('history command used');
+
     try {
         let target = null;
         let tempTarget = null;
@@ -38,6 +41,7 @@ module.exports.use = async (interaction, embedResponse, texts) => {
                 embedResponse.setDescription(texts.errorAccountNotFoundDescription.replace("${playername}", target));
                 break;
             default:
+                console.log(err);
                 embedResponse.setDescription(texts.errorUnknownDescription);
         }
     }
