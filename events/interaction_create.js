@@ -1,6 +1,6 @@
 const { MessageEmbed, CommandInteraction } = require("discord.js");
 
-const allTexts = require("../texts.json");
+const allTexts = require("../utils/texts.json");
 const dbDialog = require("../utils/dbDialog");
 
 module.exports.use = async (interaction) => {

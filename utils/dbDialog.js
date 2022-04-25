@@ -9,6 +9,10 @@ module.exports = dbDialog = {
             password: config.db.pwd,
             database: config.db.db
         });
+
+        this.db.connect(function(err) {
+            if(err) throw err;
+        });
     },
     insertUser: async function(discordID, creepName) {
         const sql = "INSERT INTO users(discord_id, creeptd_username) VALUES(?, ?)";
