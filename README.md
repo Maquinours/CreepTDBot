@@ -2,6 +2,7 @@
 
 CreepTDBot est un projet de bot Discord permettant aux utilisateurs de Discord de récupérer des informations du jeu CreepTD directement depuis l'API du jeu.
 Le projet a été initialisé le 13 mars 2022 et a été conclu le 25 avril 2022.
+Le programme est sécurisé et ne contient à ce jour aucun bug connu. Le projet est entièrement terminé et fonctionnel.
 
 # Commandes
 **setlanguage**: Cette commande permet de modifier la langue du bot sur le serveur où elle est utilisée. La commande ne peut être utilisée que par un utilisateur ayant les droits administrateur sur le serveur en question. Elle prend en paramètre une chaîne de caractère "language" contenant le code ISO 639-1 d'une des langues disponibles (EN et FR).
@@ -22,4 +23,4 @@ Dans le cas où aucun argument n'est envoyé avec, ce sont les statistiques du c
 **history**: Cette commande fonctionne de la même manière que la commande "playerstats", avec les mêmes paramètres. Cependant, celle-ci affiche l'historique des parties d'un compte CreepTD, avec, pour chaque partie, un lien redirigeant vers le récapitulatif de la partie directement sur le site officiel de CreepTD.
 
 # Specifications techniques
-Le bot utilise une base de données SQL très simple afin de stocker les liaisons de comptes Discord/CreepTD ainsi que la langue utilisée pour chaque serveur Discord.
+Le bot utilise une base de données SQL très simple afin de stocker les liaisons de comptes Discord/CreepTD ainsi que la langue utilisée pour chaque serveur Discord. Il fonctionne sous discord.js 13.6.0.
